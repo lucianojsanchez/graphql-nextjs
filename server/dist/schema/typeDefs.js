@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 export const typeDefs = gql `
   type Product {
-    id: ID!
+    _id: ID!
     name: String!
     description: String!
     price: Float!
