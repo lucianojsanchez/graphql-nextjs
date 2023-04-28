@@ -1,0 +1,2 @@
+# graphql-nextjs
+Learning purposes
