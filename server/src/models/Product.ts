@@ -7,11 +7,15 @@ const ProductSchema = new mongoose.Schema(
     price: { type: Number, required: true },
     quantity: { type: Number, required: true },
     category: { type: String, required: true },
-    imageUrl: { type: String, requred: true },
+    imageId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Image",
+      required: true,
+    },
+    imageUrl: { type: String },
+    createdAt: { type: Date, required: true },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
 export default mongoose.model("Product", ProductSchema);

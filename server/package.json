@@ -5,10 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon ./dist/index.js --ignore client",
+    "dev": "nodemon --watch dist --exec \"node dist/index.js\"",
     "compile": "tsc",
     "build": "rimraf dist && tsc && copyfiles -e \"**/*.ts\" \"src/schema/**/*\" dist",
-    "start": "npm run compile && node ./dist/index.js"
+    "start": "npm run compile && npm run dev"
   },
   "keywords": [],
   "author": "",
@@ -17,17 +17,22 @@
     "@apollo/server": "^4.7.0",
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
-    "@types/node": "^18.16.1",
+    "@types/koa": "^2.13.6",
+    "cloudinary": "^1.36.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
+    "graphql-upload-minimal": "^1.5.4",
+    "koa": "^2.14.2",
     "mongoose": "^7.0.5",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@types/node": "^18.15.10",
+    "@types/node": "^18.16.1",
+    "@types/uuid": "^9.0.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   }

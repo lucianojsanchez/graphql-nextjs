@@ -1,3 +1,4 @@
+import { graphqlUploadExpress } from "graphql-upload-minimal";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import express from "express";
@@ -12,10 +13,13 @@ connectDB();
 const server = new ApolloServer({
     typeDefs,
     resolvers,
+    csrfPrevention: false,
 });
 await server.start();
-app.use("/graphql", cors(), express.json(), expressMiddleware(server, {
-    context: async ({ req }) => ({ token: req.headers.token }),
+app.use("/graphql", cors(), express.json(), graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }), expressMiddleware(server, {
+    context: async ({ req }) => ({
+        token: req.headers.token,
+    }),
 }));
 // Modified server startup
 await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));

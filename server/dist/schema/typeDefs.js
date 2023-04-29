@@ -1,5 +1,6 @@
 import gql from "graphql-tag";
 export const typeDefs = gql `
+  scalar Upload
   type Product {
     _id: ID!
     name: String!
@@ -7,9 +8,18 @@ export const typeDefs = gql `
     price: Float!
     quantity: Int!
     category: String!
+    imageId: String
     imageUrl: String!
     createdAt: String!
     updatedAt: String!
+  }
+
+  type Image {
+    _id: ID!
+    filename: String!
+    url: String!
+    size: Int
+    mimetype: String!
   }
 
   input ProductInput {
@@ -18,7 +28,6 @@ export const typeDefs = gql `
     price: Float!
     quantity: Int!
     category: String!
-    imageUrl: String!
   }
 
   type Query {
@@ -26,10 +35,14 @@ export const typeDefs = gql `
     getProducts(amount: Int): [Product]
     getAllProducts: [Product]
   }
-
+  type DeleteAllProductsResponse {
+    message: String!
+  }
   type Mutation {
-    createProduct(productInput: ProductInput): Product!
-    deleteProduct(ID: ID!): Product!
+    createProduct(productInput: ProductInput!, file: Upload!): Product!
+    deleteProduct(ID: ID!): DeleteAllProductsResponse!
+    deleteAllProducts: DeleteAllProductsResponse!
     editProduct(ID: ID!, productInput: ProductInput): Product!
+    uploadImage(file: Upload): Image!
   }
 `;
